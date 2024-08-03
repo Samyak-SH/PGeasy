@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9qzb_jkj_K90TOW269194MniM0tzH7Hg&loading=async&libraries=places">
+    </script>
+    <link rel="stylesheet" href="/css/enlist.css">
+</head>
+
+<body>
+    <div class="succes">
+        <h1>Enlist your PG</h1>
+        <form  method="post" action="/enlist">
+            <label for="owner_name" class="ro">Owner name:</label><br>
+            <input type="text" id= "owner_name" name="f_owner_name" class="hold" placeholder="owner name" required="true">
+            <br><br>
+            <label for="email" class="ro">Email:</label><br>
+            <input type="email" id= "email"name="f_mail"class="hold" placeholder="enter email" required="true">
+            <br><br>
+            <label for="pg_name" class="ro">PG name:</label><br>
+            <input type="text" id= "pg_name" name="f_pg_name"class="hold" placeholder="pg name" required="true">
+            <br><br>
+
+            <input type='hidden' id= "test1" name="test1" class="hold" placeholder="address">
+            <input type="hidden" id= "test2" name="test2" class="hold" placeholder="Address">
+            <label for="pg_place_id" class="ro">Address</label><br>
+            <input type='text' id= "pg_place_id"name="pg_place_id" class="hold" placeholder="address" required="true">
+            <br><br>
+            <label for="n_place_id" class="ro">Nearest College:</label><br>
+            <input type="text" id= "n_place_id" name="n_place_id" class="hold" placeholder="Address" required="true">
+            <br><br>
+
+            <label for="checkboxes" class="po">Ameneties:</label><br>
+            <fieldset style ="height: 120px; width:40%" id="checkboxes">
+                <!-- <legend  class="po">Ameneties</legend> -->
+                <label for="room_services"  class="po">Room services:</label>
+                <input type="checkbox" name="f_a_room_services"class="check" id="room_services">
+                <br>
+                <label for="Refridgerator" class="po">Refridgerator:</label>
+                <input type="checkbox" name="f_a_Refridgerator"class="check" id="Refridgerator">
+                <br>
+                <label for="Wifi"  class="po">Wifi:</label>
+                <input type="checkbox" name="f_a_Wifi" class="check" id="Wifi">
+                <br>
+                <label for="Power_Backup" class="po">Power Backup:</label>
+                <input type="checkbox" name="f_a_Power_Backup" class="check" id="Power_Backup">
+            </fieldset>
+            <!-- <b></b><br> -->
+            <legend class="des">Descripton:</legend>
+            <textarea class="add" name="description" id="description" class="adit"placeholder=" Additional details....."></textarea>
+            <br><br>
+            <button class="but" type="submit" id = "submit">Submit</button>
+            <!-- todo : choose files to upload images for pg -->
+        </form>
+    </div>
+    
+
+    <script src="/js/enlist.js"></script>
+</body>
+
+</html>

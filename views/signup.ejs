@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="/css/signup.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">Registration</div>
+        <div class="content">
+            <form action="https://11b3-36-255-14-6.ngrok-free.app" id="registrationForm">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" id="fullName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Username</span>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Email</span>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Phone Number</span>
+                        <input type="tel" id="phoneNumber" placeholder="Enter your number" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Confirm Password</span>
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit" id="submit">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+        import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5cYE7Hcv20xmjfDl6h3OGJGQTOhtyRtc",
+            authDomain: "loginpage01-dc53c.firebaseapp.com",
+            databaseURL: "https://loginpage01-dc53c-default-rtdb.firebaseio.com",
+            projectId: "loginpage01-dc53c",
+            storageBucket: "loginpage01-dc53c.appspot.com",
+            messagingSenderId: "636403918461",
+            appId: "1:636403918461:web:45310c81c15fa7a929f314"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+        const registerButton = document.getElementById('submit'); // Get the register button element
+
+        registerButton.addEventListener('click', (e) => { // Add event listener to the register button
+            e.preventDefault(); // Prevent default form submission
+            console.log('Register button clicked');
+
+            var fullName = document.getElementById('fullName').value;
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var phoneNumber = document.getElementById('phoneNumber').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            console.log('Form Data:', { fullName, username, email, phoneNumber, password, confirmPassword });
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    console.log('User created successfully');
+                    // Signed up 
+                    const user = userCredential.user;
+                    set(ref(database, 'users/' + user.uid), {
+                        fullName: fullName,
+                        username: username,
+                        email: email,
+                        phoneNumber: phoneNumber
+                    })
+                        .then(() => {
+                            console.log('User data stored successfully in database');
+                            alert('User created');
+                            window.location.href = '/login';
+                        })
+                        .catch((error) => {
+                            console.error('Error writing user data to database:', error);
+                            alert('Failed to store user data');
+                        });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error('Error creating user:', errorCode, errorMessage);
+                    alert(errorMessage); // Display error message
+                });
+        });
+    </script>
+</body>
+
+</html>

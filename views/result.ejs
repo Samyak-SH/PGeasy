@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>result</title>
+
+    <link rel="stylesheet" href="/css/result.css">
+</head>
+<body>
+    <nav class = "navbar">
+        <div class = "container">
+            <img class="logo" src="/img/Logo.jpg" alt="logo">
+                <div class = "navbar-nav">
+                    <a href = "/search">Home</a>
+                    <a href = "/about">About us</a>
+                    <a href = "/blog">Blogs</a>
+                    <a class="cta" href="#"><button>Sign Up</button></a>
+                </div>
+        </div>
+    </nav>
+    <% if(Object.keys(search_results).length <=0){%>
+        <h2>No results found</h2>
+    <%}else{ 
+            let i=1%>
+            <% for(let res of search_results) {%>
+                <div class="box-container">
+                    <div class="box">
+                        <img class="Imagedisplay" src="/img/<%=i%>.jpg" alt="">
+                    </div>
+                    <div class="containers">
+                        <span class="text-1"><%=res.pg_name%></span>
+                        <span class="text-2"><%=res.description%></span>
+                        <span class="text-3">Rent /Month </span>
+                        <span class="text-4">Secuirty Deposit</span>
+                        <span class="text-5">Area</span>
+                    </div>
+            </div>
+            <%i++}%>
+    <%}%>
+</body>
+</html>
